@@ -1,9 +1,8 @@
 /*
   irrigation_controller_esp32.ino
 
-  Porte Arduino IDE (arquivo unico) do firmware de irrigacao. Fonte de
-  verdade: firmware/esp32/ (projeto PlatformIO, com testes). Mudancas de
-  logica devem ser aplicadas nos dois lugares.
+  Firmware do coletor do SmartIrrigation (Arduino IDE): le os sensores,
+  envia os dados para a API e aciona o rele da irrigacao.
 
   Placa: ESP32 Dev Module | Framework: Arduino
   Bibliotecas (Arduino Library Manager):
@@ -11,9 +10,9 @@
     - LiquidCrystal_I2C (marcoschwartz)
     - ArduinoJson (bblanchon, v7)
 
-  ANTES DE COMPILAR: preencha WIFI_SSID, WIFI_PASSWORD, API_BASE_URL,
-  DEVICE_ID e DEVICE_API_KEY abaixo. Recalibre SOIL_MAX_VOLTAGE/
-  SOIL_MIN_VOLTAGE apos montar o hardware.
+  ANTES DE COMPILAR: copie secrets.example.h para secrets.h e preencha
+  WIFI_SSID, WIFI_PASSWORD, API_BASE_URL, DEVICE_ID e DEVICE_API_KEY.
+  Recalibre SOIL_MAX_VOLTAGE/SOIL_MIN_VOLTAGE apos montar o hardware.
 
   Contrato HTTP (backend Spring Boot, com.smartirrigation.smartirrigation):
   toda chamada exige o header "X-Device-Key: <DEVICE_API_KEY>".
@@ -58,11 +57,9 @@
 // ==================== Configuracao ====================
 
 // --- Rede e backend HTTP ---
-#define WIFI_SSID "VELIKA"
-#define WIFI_PASSWORD "velika102025"
-#define API_BASE_URL "https://smart-irrigation-api-bhii.onrender.com"
-#define DEVICE_ID "esp32-01"
-#define DEVICE_API_KEY "7ff55c9e48613340780b303a4b717cf756613d1902068b74f033acc037d30937" // = DEVICE_API_KEY no .env do backend
+// Wi-Fi, endereco da API e chave do dispositivo ficam em secrets.h, que NAO
+// vai para o Git. Copie secrets.example.h para secrets.h e preencha.
+#include "secrets.h"
 
 // --- Pinos de hardware ---
 #define RELAY_GPIO_PIN 26
