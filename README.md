@@ -155,9 +155,9 @@ Toda chamada leva o cabeçalho `X-Device-Key: <DEVICE_API_KEY>`. Se um envio fal
 
 | Método | Rota | Conteúdo |
 |---|---|---|
-| POST | `/api/ingest/telemetry` | `deviceId`, `temperature`, `humidity`, `soilPercent`, `timestamp` |
-| POST | `/api/ingest/status` | `deviceId`, `modo`, `autorizado`, `quantidadeAgua`, `tempMin`, `tempMax`, `emExecucao`, `latitude` |
-| POST | `/api/ingest/history` | `deviceId`, `umidadeAtual`, `tempo`, `volumePorPlanta`, `volumeTotal`, `data`, `hora`, `modo` |
+| POST | `/api/devices/{id}/telemetry` | `deviceId`, `temperature`, `humidity`, `soilPercent`, `timestamp` |
+| POST | `/api/devices/{id}/status` | `deviceId`, `modo`, `autorizado`, `quantidadeAgua`, `tempMin`, `tempMax`, `emExecucao`, `latitude` |
+| POST | `/api/devices/{id}/irrigation-history` | `deviceId`, `umidadeAtual`, `tempo`, `volumePorPlanta`, `volumeTotal`, `data`, `hora`, `modo` |
 | GET | `/api/devices/{id}/config` | Busca a configuração inicial ao ligar |
 | GET | `/api/devices/{id}/commands/poll` | Espera o próximo comando (`200` com comando ou `204` sem nada) |
 
