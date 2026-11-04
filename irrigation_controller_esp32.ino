@@ -17,11 +17,11 @@
   Contrato HTTP (backend Spring Boot, com.smartirrigation.smartirrigation):
   toda chamada exige o header "X-Device-Key: <DEVICE_API_KEY>".
 
-    POST {API_BASE_URL}/api/webhooks/telemetry
+    POST {API_BASE_URL}/api/devices/{deviceId}/telemetry
       { deviceId, temperature, humidity, soilPercent, timestamp }
-    POST {API_BASE_URL}/api/webhooks/status
+    POST {API_BASE_URL}/api/devices/{deviceId}/status
       { deviceId, modo, autorizado, quantidadeAgua, tempMin, tempMax, emExecucao, latitude }
-    POST {API_BASE_URL}/api/webhooks/history
+    POST {API_BASE_URL}/api/devices/{deviceId}/irrigation-history
       { deviceId, umidadeAtual, tempo, volumePorPlanta, volumeTotal, data, hora, modo }
     GET  {API_BASE_URL}/api/devices/{deviceId}/config
       -> 200 com { modo, autorizado, quantidadeAgua, latitude, configIrrigacao }
@@ -498,7 +498,7 @@ namespace ApiClient {
     doc["soilPercent"] = soilPercent;
     doc["timestamp"] = (double)time(nullptr);
 
-    String url = String(API_BASE_URL) + "/api/webhooks/telemetry";
+    String url = String(API_BASE_URL) + "/api/devices/" + DEVICE_ID + "/telemetry";
     return postWithRetry(url, doc);
   }
 
@@ -513,7 +513,7 @@ namespace ApiClient {
     doc["emExecucao"] = status.emExecucao;
     doc["latitude"] = status.latitude;
 
-    String url = String(API_BASE_URL) + "/api/webhooks/status";
+    String url = String(API_BASE_URL) + "/api/devices/" + DEVICE_ID + "/status";
     return postWithRetry(url, doc);
   }
 
@@ -528,7 +528,7 @@ namespace ApiClient {
     doc["hora"] = record.hora;
     doc["modo"] = record.modo;
 
-    String url = String(API_BASE_URL) + "/api/webhooks/history";
+    String url = String(API_BASE_URL) + "/api/devices/" + DEVICE_ID + "/irrigation-history";
     return postWithRetry(url, doc);
   }
 
